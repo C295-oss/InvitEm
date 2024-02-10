@@ -1,23 +1,35 @@
 import { useForm } from "react-hook-form";
+import { useRef } from 'react';
 import "./App.css";
+import emailjs from 'emailjs-com';
 
-// Based off of this article: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
-
-export default function Multiple({ onSubmit })
+export default function Multiple({ addFormData  })
 {
     const {
         register,
-        handleSubmit,
-        formState: {errors}
+        handleSubmit
     } = useForm();
+    const form = useRef();
 
-    // const onSubmit = (data) => {
-    //     console.log(data);
-    // };
+    const onSubmit = (data) => {
+        addFormData(data); // Call the addFormData function passed from the parent component
+        sendEmail(); // Call sendEmail function to send email
+    };
+
+    const sendEmail = () => {
+        emailjs.sendForm('service_cn4108g', 'template_fiwkzrt', form.current, 'qU0bzCgf6xZOQiuOV', { to_email: 'tbits2@uic.edu' })
+            .then((result) => {
+                console.log(result.text);
+                console.log("message sent!")
+            }, (error) => {
+                console.log(error.text);
+                console.log("error sending message, try again!")
+            });
+    };
 
     return (
         <div className="flex justify-center items-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form ref={form} onSubmit={handleSubmit(onSubmit)}>
             
                 <div className="form-control">
                     <label>Name</label>

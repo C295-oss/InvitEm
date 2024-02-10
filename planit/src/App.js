@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React,{ useState } from 'react';
 import './App.css';
 import Multiple from './form';
 
 
-const [submittedData, setSubmittedData] = useState(null);
-const onSubmit = (data) => {
-  setSubmittedData(data);
-};
-
-
 function App() {
+  const [formDataList, setFormDataList] = useState([]);
+
+  const addFormData = (data) => {
+    setFormDataList([...formDataList, data]);
+  };
+
   return (
     <>
     
@@ -34,24 +34,27 @@ function App() {
       <div className="bg-whiteNav h-screen w-3/5">
         <p>my events</p>
 
-        {submittedData && (
-          <div className="mt-5">
-            <h2>Submitted Data</h2>
-              <div>
-                <p>Name: {submittedData.name}</p>
-                <p>Date: {submittedData.date}</p>
-                <p>Location: {submittedData.location}</p>
-                <p>Time: {submittedData.time}</p>
-                <p>Description: {submittedData.description}</p>
+        {formDataList.map((formData, index) => (
+          <div key={index} className="justify-around flex mt-5 w-full">
+            <h2>Submitted Data {index + 1}</h2>
+            <div className="flex mt-5">
+              <p>Name: {formData.name}</p>
+              <p>Date: {formData.date}</p>
+              <p>Location: {formData.location}</p>
+              <p>Time: {formData.time}</p>
+              
+              <div className="text-wrap">
+                <p>Description: {formData.description}</p>
+              </div>
+            
             </div>
           </div>
-        )}
-
+        ))}
       </div>
     
       <div className="h-screen w-2/5 bg-lightWhite text-center">
         <h1 className='font-bold color-blackText text-4xl'>Create Event</h1>
-        < Multiple onSubmit={onSubmit} />
+        <Multiple addFormData={addFormData} />
 
       </div>
     </div>
