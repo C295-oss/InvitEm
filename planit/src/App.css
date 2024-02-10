@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* This makes the container take the full viewport height */
+}
+
+.fillRemaining {
+  flex-grow: 1; /* This makes the div grow to fill the remaining space */
+}
+
+.form-control
+{
+  display: flex;
+  
+  justify-content: space-between;
+  justify-items: center;
+  
+  margin-top: 8;
+  margin-bottom: 8;
+
+  margin-top: 5vh;
+}
+
+input[type=text]
+{
+  margin-left: 1vh;
+  border-radius: 10px;
+  width: 40vh;
+}
+
+label
+{
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+textarea
+{
+  width: 55vh;
+  height: 30vh;
+  border-radius: 10px;
+}
